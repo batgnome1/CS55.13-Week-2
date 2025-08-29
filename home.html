@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>CS55.13 Week 2</title>
+        
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <link rel="stylesheet" href="default.css">
+
+    </head>
+    <body>
+        <script src="index.js"></script>
+        <h1>Watch Some Movies</h1>
+
+        <div id="theMachine"></div>
+            <script type="text/babel" data-type="module" data-presets="react">
+            
+            import React from 'https://cdn.jsdelivr.net/npm/react@19.1.1/+esm';
+
+            import { createRoot } from 'https://cdn.jsdelivr.net/npm/react-dom@19.1.1/client/+esm';
+
+           function Video({ video, title }) {
+                    return (
+                         <div>
+                             <h3>{title}</h3>
+                                <iframe
+                                    src={video}
+                                    width="560"
+                                    height="384"
+                                    frameBorder="0"
+                                    allowFullScreen >
+                                </iframe>
+                            </div>
+                            );
+                    } 
+
+            function ProjectList(props) {
+                return <div>
+            {
+                    props.list.map(
+        
+                (item, index) => (
+                    <Video key={index} title={item.title} video={item.link} /> )
+                        )
+            }
+                    </div>
+}
+            
+            $.getJSON("movies.json", function(jsonFromJquery)
+                {
+                    console.log(jsonFromJquery);
+
+                    const theElement = document.getElementById('theMachine');
+
+                    const theRoot = createRoot(theElement);
+
+                    theRoot.render(
+                        <ProjectList list={jsonFromJquery} />
+                    );
+
+                }
+        );
+
+        </script>
+    </body>
+</html>
